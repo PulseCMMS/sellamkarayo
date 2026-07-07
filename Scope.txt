@@ -1,0 +1,567 @@
+You are an expert senior full-stack web developer.
+
+Your task is to build a COMPLETE production-quality website using ONLY HTML, CSS and vanilla JavaScript.
+
+The project will be hosted on GitHub Pages, therefore it MUST be completely static.
+
+DO NOT use:
+- React
+- Vue
+- Angular
+- Bootstrap
+- Node.js
+- Express
+- Firebase
+- PHP
+- Python
+- SQL
+- Backend APIs
+- External databases
+
+Everything must work entirely inside the browser using LocalStorage.
+
+==========================================================
+PROJECT
+==========================================================
+
+Build a responsive mobile-first website called
+
+⚽ World Cup Final Party
+
+The website is for approximately 15 people attending a World Cup Final watch party.
+
+Each guest joins using their phone.
+
+The site should feel polished, premium and fun.
+
+Theme:
+
+Dark mode
+
+Green football field accents
+
+Gold highlights
+
+Smooth animations
+
+Modern rounded cards
+
+Beautiful typography
+
+Responsive on every phone.
+
+==========================================================
+PAGES
+==========================================================
+
+Create these pages.
+
+index.html
+
+bingo.html
+
+predictions.html
+
+leaderboard.html
+
+admin.html
+
+rules.html
+
+==========================================================
+HOME PAGE
+==========================================================
+
+Display
+
+World Cup Final Party
+
+Large football illustration
+
+Buttons
+
+Play Bingo
+
+Prediction Challenge
+
+Leaderboard
+
+Rules
+
+Footer
+
+Made for World Cup Final Night
+
+==========================================================
+GENERAL DESIGN
+==========================================================
+
+Modern glassmorphism
+
+Rounded cards
+
+Animated buttons
+
+Smooth hover effects
+
+Gradient background
+
+Football pitch accents
+
+Dark theme
+
+Nice transitions
+
+No ugly HTML.
+
+==========================================================
+BINGO PAGE
+==========================================================
+
+First ask
+
+Enter your name
+
+Generate Card
+
+Once Generate Card is pressed
+
+Create a random 5x5 Bingo card.
+
+Middle square
+
+FREE
+
+Every player should receive a different card.
+
+Store the card in LocalStorage.
+
+Refreshing the page must NOT generate another card.
+
+==========================================================
+BINGO EVENTS
+==========================================================
+
+Create a large list of football events.
+
+Examples
+
+Goal
+
+Yellow Card
+
+Red Card
+
+Corner
+
+VAR Review
+
+Penalty Awarded
+
+Penalty Missed
+
+Offside
+
+Throw In
+
+Goal Kick
+
+Free Kick
+
+Substitution
+
+Coach shown
+
+Fans singing
+
+Player slips
+
+Header on target
+
+Shot hits crossbar
+
+Big save
+
+Injury
+
+Commentator says "world class"
+
+Commentator says "pressure"
+
+Player argues with referee
+
+Long range shot
+
+Crowd boos
+
+Replay shown
+
+Drinking water
+
+Captain talking to referee
+
+Extra Time
+
+Penalty Shootout
+
+Own Goal
+
+Handball
+
+Celebration
+
+Missed sitter
+
+Goalkeeper catches cross
+
+Cross into box
+
+Dangerous tackle
+
+Referee whistles
+
+==========================================================
+BINGO FEATURES
+==========================================================
+
+Clicking a square marks it.
+
+Click again unmarks it.
+
+Check automatically for
+
+Horizontal Bingo
+
+Vertical Bingo
+
+Diagonal Bingo
+
+When Bingo is achieved
+
+Show
+
+Large animated popup
+
+BINGO!!
+
+Confetti animation
+
+Crowd cheer sound
+
+Fireworks animation
+
+Display
+
+You Win!
+
+==========================================================
+PREDICTION PAGE
+==========================================================
+
+Ask
+
+Player Name
+
+Team to Win
+
+Final Score
+
+First Goal Team
+
+First Goal Scorer
+
+Minute of First Goal
+
+Total Goals
+
+Yellow Cards
+
+Red Cards
+
+Corners
+
+Will Match Go To Extra Time?
+
+Penalty Shootout?
+
+Man of the Match
+
+Save predictions to LocalStorage.
+
+Allow editing until Lock Predictions is pressed.
+
+Once locked
+
+Cannot edit.
+
+==========================================================
+LEADERBOARD
+==========================================================
+
+Read all saved predictions.
+
+Display cards
+
+Player Name
+
+Prediction summary
+
+Initially score is zero.
+
+After admin enters actual match result
+
+Automatically calculate scores.
+
+==========================================================
+ADMIN PAGE
+==========================================================
+
+Simple admin page.
+
+Password
+
+worldcup
+
+After login
+
+Enter
+
+Winning Team
+
+Final Score
+
+First Goal Team
+
+First Goal Scorer
+
+Minute First Goal
+
+Total Goals
+
+Yellow Cards
+
+Red Cards
+
+Corners
+
+Extra Time
+
+Penalty Shootout
+
+Man of the Match
+
+Press
+
+Calculate Scores
+
+==========================================================
+POINTS
+==========================================================
+
+Winning Team
+
+5
+
+Correct Score
+
+10
+
+First Goal Team
+
+4
+
+First Scorer
+
+8
+
+Minute within ±5
+
+5
+
+Goals
+
+3
+
+Yellow Cards
+
+3
+
+Red Cards
+
+3
+
+Corners
+
+2
+
+Extra Time
+
+3
+
+Penalty Shootout
+
+3
+
+Man of Match
+
+5
+
+Automatically rank everyone.
+
+Display
+
+🥇
+
+🥈
+
+🥉
+
+==========================================================
+RULES PAGE
+==========================================================
+
+Explain
+
+How Bingo works
+
+How predictions work
+
+Scoring
+
+Prize ideas
+
+==========================================================
+LOCAL STORAGE
+==========================================================
+
+Everything must persist using LocalStorage.
+
+Refreshing the page must never erase
+
+Bingo card
+
+Selections
+
+Predictions
+
+Scores
+
+Leaderboard
+
+==========================================================
+RESPONSIVE
+==========================================================
+
+Must work perfectly on
+
+Android
+
+iPhone
+
+Desktop
+
+Tablet
+
+==========================================================
+ACCESSIBILITY
+==========================================================
+
+Large touch targets
+
+Readable fonts
+
+Good contrast
+
+Keyboard accessible
+
+==========================================================
+FILE STRUCTURE
+==========================================================
+
+Generate
+
+index.html
+
+bingo.html
+
+predictions.html
+
+leaderboard.html
+
+admin.html
+
+rules.html
+
+css/style.css
+
+js/common.js
+
+js/bingo.js
+
+js/predictions.js
+
+js/admin.js
+
+js/leaderboard.js
+
+js/confetti.js
+
+assets/
+
+README.md
+
+==========================================================
+CODE QUALITY
+==========================================================
+
+Well commented
+
+Modular
+
+Readable
+
+No duplicated code
+
+No inline CSS
+
+No inline JavaScript
+
+==========================================================
+EXTRAS
+==========================================================
+
+Animated loading screen
+
+Floating footballs
+
+Background crowd lights
+
+Sound toggle
+
+Dark mode only
+
+QR code shown on homepage pointing to the GitHub Pages URL (easy to replace later)
+
+Countdown timer before kickoff (editable)
+
+Random football facts between pages
+
+Victory animation
+
+Smooth page transitions
+
+==========================================================
+IMPORTANT
+==========================================================
+
+Output COMPLETE code for EVERY file.
+
+Do NOT omit anything.
+
+Do NOT summarize.
+
+Do NOT use placeholders.
+
+Generate every file completely.
+
+Continue generating until every file has been produced.

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Bingo - World Cup Final</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .bingo-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 1rem;
+        }
+        .bingo-cell {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+        @media (min-width: 768px) {
+            .bingo-cell { font-size: 0.9rem; padding: 5px; gap: 10px; }
+            .bingo-grid { gap: 10px; }
+        }
+        .bingo-cell.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: bold;
+            transform: scale(0.95);
+        }
+        .bingo-cell.free {
+            background: var(--secondary);
+            color: #000;
+            font-weight: bold;
+            cursor: default;
+        }
+        .winner-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            background: var(--bg-card);
+            border: 2px solid var(--secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(15px);
+            pointer-events: none;
+        }
+        .winner-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .winner-popup h2 {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 230, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-btn">← Back</a>
+            <h2>Football Bingo</h2>
+        </div>
+
+        <div id="setup-section" class="glass-card hidden">
+            <h3>Enter Your Name</h3>
+            <div class="form-group">
+                <input type="text" id="playerName" placeholder="Your Name" />
+            </div>
+            <button id="generateBtn" class="btn btn-primary">Generate Card</button>
+        </div>
+
+        <div id="game-section" class="glass-card hidden">
+            <h3 id="greeting" class="subtitle"></h3>
+            <div class="bingo-grid" id="bingoGrid"></div>
+            <button id="resetBtn" class="btn btn-secondary" style="margin-top: 2rem;">Delete Card & Start Over</button>
+        </div>
+    </div>
+
+    <div class="winner-popup" id="winnerPopup">
+        <h2>BINGO!!</h2>
+        <p style="font-size: 1.5rem; margin-bottom: 2rem;">You Win!</p>
+        <button class="btn btn-primary" onclick="document.getElementById('winnerPopup').classList.remove('show')">Close</button>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/confetti.js"></script>
+    <script src="js/bingo.js"></script>
+</body>
+</html>

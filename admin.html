@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - World Cup Final</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-btn">← Back</a>
+            <h2>Admin Panel</h2>
+        </div>
+
+        <div class="glass-card" id="login-section">
+            <p class="subtitle">Enter Admin Password</p>
+            <div class="form-group">
+                <input type="password" id="adminPassword" placeholder="Password">
+            </div>
+            <button class="btn btn-primary" id="loginBtn">Login</button>
+        </div>
+
+        <div class="glass-card hidden" id="admin-section">
+            <p class="subtitle">Enter Actual Match Results</p>
+            <form id="resultForm">
+                <div class="form-group">
+                    <label>Winning Team</label>
+                    <select id="resWinningTeam" required>
+                        <option value="" disabled selected>Select Team...</option>
+                        <option value="Team A">Team A</option>
+                        <option value="Team B">Team B</option>
+                        <option value="Draw">Draw</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Final Score (e.g., 2-1)</label>
+                    <input type="text" id="resFinalScore" required>
+                </div>
+                <div class="form-group">
+                    <label>First Goal Team</label>
+                    <select id="resFirstGoalTeam">
+                        <option value="">None / No Goal</option>
+                        <option value="Team A">Team A</option>
+                        <option value="Team B">Team B</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>First Goal Scorer</label>
+                    <select id="resFirstGoalScorer">
+                        <option value="">None / No Goal</option>
+                        <optgroup label="Team A">
+                            <option value="player a1">Player A1</option>
+                            <option value="player a2">Player A2</option>
+                            <option value="player a3">Player A3</option>
+                        </optgroup>
+                        <optgroup label="Team B">
+                            <option value="player b1">Player B1</option>
+                            <option value="player b2">Player B2</option>
+                            <option value="player b3">Player B3</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Minute First Goal</label>
+                    <input type="number" id="resMinuteFirstGoal">
+                </div>
+                <div class="form-group">
+                    <label>Total Goals</label>
+                    <input type="number" id="resTotalGoals">
+                </div>
+                <div class="form-group">
+                    <label>Yellow Cards</label>
+                    <input type="number" id="resYellowCards">
+                </div>
+                <div class="form-group">
+                    <label>Red Cards</label>
+                    <input type="number" id="resRedCards">
+                </div>
+                <div class="form-group">
+                    <label>Corners</label>
+                    <input type="number" id="resCorners">
+                </div>
+                <div class="form-group">
+                    <label>Extra Time</label>
+                    <select id="resExtraTime">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Penalty Shootout</label>
+                    <select id="resPenaltyShootout">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Man of the Match</label>
+                    <select id="resMotm">
+                        <option value="">Select Player...</option>
+                        <optgroup label="Team A">
+                            <option value="player a1">Player A1</option>
+                            <option value="player a2">Player A2</option>
+                            <option value="player a3">Player A3</option>
+                        </optgroup>
+                        <optgroup label="Team B">
+                            <option value="player b1">Player B1</option>
+                            <option value="player b2">Player B2</option>
+                            <option value="player b3">Player B3</option>
+                        </optgroup>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="calcBtn">Calculate Scores</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
