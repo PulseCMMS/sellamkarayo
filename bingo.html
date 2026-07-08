@@ -22,12 +22,15 @@
             justify-content: center;
             text-align: center;
             padding: 2px;
-            font-size: 0.7rem;
+            font-size: clamp(0.5rem, 2.5vw, 0.75rem);
+            line-height: 1.1;
             cursor: pointer;
             transition: all 0.2s ease;
             user-select: none;
             overflow: hidden;
             word-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
         }
         @media (min-width: 768px) {
             .bingo-cell { font-size: 0.9rem; padding: 5px; gap: 10px; }
