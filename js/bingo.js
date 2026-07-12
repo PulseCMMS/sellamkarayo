@@ -1,17 +1,28 @@
 // js/bingo.js
-const BINGO_EVENTS = [
-    "Goal", "Yellow Card", "Red Card", "Corner", "VAR Review", 
-    "Penalty Awarded", "Penalty Missed", "Offside", "Throw In", 
-    "Goal Kick", "Free Kick", "Substitution", "Coach shown", 
-    "Fans singing", "Player slips", "Header on target", 
-    "Shot hits crossbar", "Big save", "Injury", 
-    "Commentator says 'world class'", "Commentator says 'pressure'", 
-    "Player argues with referee", "Long range shot", "Crowd boos", 
-    "Replay shown", "Drinking water", "Captain talking to referee", 
-    "Extra Time", "Penalty Shootout", "Own Goal", "Handball", 
-    "Celebration", "Missed sitter", "Goalkeeper catches cross", 
-    "Cross into box", "Dangerous tackle", "Referee whistles"
-];
+const BINGO_CATEGORIES = {
+    common: [
+        "Corner Kick", "Yellow Card", "Offside Flag", "Substitution", 
+        "Coach Shown on TV", "Big Goalkeeper Save", "Header on Target", 
+        "Injury Stoppage", "Player Argues with Referee", 
+        "Captain Talks to Referee", "Player Slips", "First Half Ends", 
+        "Second Half Begins", "Throw In", "Goal Kick", "Free Kick",
+        "Commentator says 'pressure'"
+    ],
+    uncommon: [
+        "Goal", "VAR Review", "Penalty Awarded", "Handball Called", 
+        "Shot hits crossbar/post", "Dangerous Tackle", "Goal Disallowed", 
+        "5+ Minutes Added Time", "Double Substitution", 
+        "Team Scores From a Corner", "Team Scores From a Free Kick",
+        "Crowd Boos", "Player Gets Angry", "Drink Break",
+        "Long Range Shot"
+    ],
+    rare: [
+        "Red Card", "Own Goal", "Penalty Missed", "Goalkeeper Saves a Penalty", 
+        "Penalty Shootout Begins", "Extra Time Begins", 
+        "Stretcher Comes Onto the Field", "Team Uses All Substitutions",
+        "Pitch Invader", "Bicycle Kick", "Goal from Outside the Box"
+    ]
+};
 
 const LOCAL_STORAGE_KEY = 'worldCupBingoState';
 
@@ -57,15 +68,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    function shuffleArray(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function getRandomItems(array, count) {
+        return shuffleArray(array).slice(0, count);
+    }
+
     function generateCard() {
-        const shuffled = [...BINGO_EVENTS].sort(() => 0.5 - Math.random());
+        // Determine counts for each category to total 24
+        // Rare: 2-4
+        const rareCount = Math.floor(Math.random() * 3) + 2;
+        // Common: 10-12
+        const commonCount = Math.floor(Math.random() * 3) + 10;
+        // Uncommon: remainder (will be 8-12)
+        const uncommonCount = 24 - rareCount - commonCount;
+
+        const selectedEvents = [
+            ...getRandomItems(BINGO_CATEGORIES.common, commonCount),
+            ...getRandomItems(BINGO_CATEGORIES.uncommon, uncommonCount),
+            ...getRandomItems(BINGO_CATEGORIES.rare, rareCount)
+        ];
+
+        // Shuffle all selected events so they are randomly distributed on the board
+        const shuffledEvents = shuffleArray(selectedEvents);
+
         const card = [];
         let index = 0;
         for (let i = 0; i < 25; i++) {
             if (i === 12) {
                 card.push({ text: 'FREE', active: true, isFree: true });
             } else {
-                card.push({ text: shuffled[index++], active: false, isFree: false });
+                card.push({ text: shuffledEvents[index++], active: false, isFree: false });
             }
         }
         return card;
