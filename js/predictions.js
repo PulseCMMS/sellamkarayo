@@ -33,11 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
             finalScore: document.getElementById('finalScore').value,
             firstGoalTeam: document.getElementById('firstGoalTeam').value,
             firstGoalScorer: document.getElementById('firstGoalScorer').value,
-            minuteOfFirstGoal: parseInt(document.getElementById('minuteOfFirstGoal').value) || 0,
-            totalGoals: parseInt(document.getElementById('totalGoals').value) || 0,
-            yellowCards: parseInt(document.getElementById('yellowCards').value) || 0,
-            redCards: parseInt(document.getElementById('redCards').value) || 0,
-            corners: parseInt(document.getElementById('corners').value) || 0,
+            totalGoals: document.getElementById('totalGoals').value === '' ? '' : parseInt(document.getElementById('totalGoals').value),
+            yellowCards: document.getElementById('yellowCards').value === '' ? '' : parseInt(document.getElementById('yellowCards').value),
+            redCards: document.getElementById('redCards').value === '' ? '' : parseInt(document.getElementById('redCards').value),
+            corners: document.getElementById('corners').value === '' ? '' : parseInt(document.getElementById('corners').value),
             extraTime: document.getElementById('extraTime').value,
             penaltyShootout: document.getElementById('penaltyShootout').value,
             motm: document.getElementById('motm').value,
@@ -67,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('finalScore').value = data.finalScore || '';
         document.getElementById('firstGoalTeam').value = data.firstGoalTeam || '';
         document.getElementById('firstGoalScorer').value = data.firstGoalScorer || '';
-        document.getElementById('minuteOfFirstGoal').value = data.minuteOfFirstGoal || '';
         document.getElementById('totalGoals').value = data.totalGoals || '';
         document.getElementById('yellowCards').value = data.yellowCards || '';
         document.getElementById('redCards').value = data.redCards || '';

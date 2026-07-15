@@ -2,6 +2,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginSection = document.getElementById('login-section');
     const adminSection = document.getElementById('admin-section');
+    const manageSection = document.getElementById('manage-predictions-section');
+    const predictionsList = document.getElementById('predictionsList');
     const loginBtn = document.getElementById('loginBtn');
     const passwordInput = document.getElementById('adminPassword');
     const resultForm = document.getElementById('resultForm');
@@ -10,7 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (passwordInput.value === 'worldcup') {
             loginSection.classList.add('hidden');
             adminSection.classList.remove('hidden');
+            manageSection.classList.remove('hidden');
             loadResults();
+            renderPredictions();
         } else {
             alert('Incorrect password');
         }
@@ -23,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('resFinalScore').value = res.finalScore || '';
             document.getElementById('resFirstGoalTeam').value = res.firstGoalTeam || '';
             document.getElementById('resFirstGoalScorer').value = res.firstGoalScorer || '';
-            document.getElementById('resMinuteFirstGoal').value = res.minuteFirstGoal || '';
             document.getElementById('resTotalGoals').value = res.totalGoals || '';
             document.getElementById('resYellowCards').value = res.yellowCards || '';
             document.getElementById('resRedCards').value = res.redCards || '';
@@ -42,11 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
             finalScore: document.getElementById('resFinalScore').value.toLowerCase().trim(),
             firstGoalTeam: document.getElementById('resFirstGoalTeam').value.toLowerCase().trim(),
             firstGoalScorer: document.getElementById('resFirstGoalScorer').value.toLowerCase().trim(),
-            minuteFirstGoal: parseInt(document.getElementById('resMinuteFirstGoal').value) || 0,
-            totalGoals: parseInt(document.getElementById('resTotalGoals').value) || 0,
-            yellowCards: parseInt(document.getElementById('resYellowCards').value) || 0,
-            redCards: parseInt(document.getElementById('resRedCards').value) || 0,
-            corners: parseInt(document.getElementById('resCorners').value) || 0,
+            totalGoals: document.getElementById('resTotalGoals').value === '' ? '' : parseInt(document.getElementById('resTotalGoals').value),
+            yellowCards: document.getElementById('resYellowCards').value === '' ? '' : parseInt(document.getElementById('resYellowCards').value),
+            redCards: document.getElementById('resRedCards').value === '' ? '' : parseInt(document.getElementById('resRedCards').value),
+            corners: document.getElementById('resCorners').value === '' ? '' : parseInt(document.getElementById('resCorners').value),
             extraTime: document.getElementById('resExtraTime').value,
             penaltyShootout: document.getElementById('resPenaltyShootout').value,
             motm: document.getElementById('resMotm').value.toLowerCase().trim()
@@ -62,11 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (p.finalScore && p.finalScore.toLowerCase().trim() === results.finalScore) score += POINTS_CONFIG.finalScore;
             if (p.firstGoalTeam && p.firstGoalTeam.toLowerCase().trim() === results.firstGoalTeam) score += POINTS_CONFIG.firstGoalTeam;
             if (p.firstGoalScorer && p.firstGoalScorer.toLowerCase().trim() === results.firstGoalScorer) score += POINTS_CONFIG.firstGoalScorer;
-            if (p.minuteOfFirstGoal > 0 && Math.abs(p.minuteOfFirstGoal - results.minuteFirstGoal) <= 5) score += POINTS_CONFIG.minuteOfFirstGoal;
-            if (p.totalGoals === results.totalGoals) score += POINTS_CONFIG.totalGoals;
-            if (p.yellowCards === results.yellowCards) score += POINTS_CONFIG.yellowCards;
-            if (p.redCards === results.redCards) score += POINTS_CONFIG.redCards;
-            if (p.corners === results.corners) score += POINTS_CONFIG.corners;
+            if (p.totalGoals !== '' && p.totalGoals === results.totalGoals) score += POINTS_CONFIG.totalGoals;
+            if (p.yellowCards !== '' && p.yellowCards === results.yellowCards) score += POINTS_CONFIG.yellowCards;
+            if (p.redCards !== '' && p.redCards === results.redCards) score += POINTS_CONFIG.redCards;
+            if (p.corners !== '' && p.corners === results.corners) score += POINTS_CONFIG.corners;
             if (p.extraTime === results.extraTime) score += POINTS_CONFIG.extraTime;
             if (p.penaltyShootout === results.penaltyShootout) score += POINTS_CONFIG.penaltyShootout;
             if (p.motm && p.motm.toLowerCase().trim() === results.motm) score += POINTS_CONFIG.motm;
@@ -77,5 +78,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
         StorageDB.set('worldCupPredictions', predictions);
         alert('Scores calculated and saved!');
+        renderPredictions(); // Refresh the list to show updated scores
     });
+
+    function renderPredictions() {
+        let preds = StorageDB.get('worldCupPredictions') || [];
+        predictionsList.innerHTML = '';
+        if (preds.length === 0) {
+            predictionsList.innerHTML = '<p style="text-align: center; opacity: 0.7;">No predictions found.</p>';
+            return;
+        }
+
+        preds.forEach((p, index) => {
+            const div = document.createElement('div');
+            div.className = 'prediction-item';
+            div.style.padding = '1rem';
+            div.style.background = 'rgba(255, 255, 255, 0.05)';
+            div.style.borderRadius = '8px';
+            div.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+            
+            div.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: var(--primary); font-size: 1.1em;">${p.playerName || 'Unknown Player'}</strong>
+                        <div style="font-size: 0.85em; opacity: 0.8; margin-top: 0.5rem; line-height: 1.4;">
+                            Winner: ${p.teamToWin || 'N/A'} <br>
+                            Score: ${p.finalScore || 'N/A'} <br>
+                            Points: ${p.score || 0}
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; flex-direction: column;">
+                        <button class="btn btn-secondary edit-btn" data-index="${index}" style="padding: 0.4rem 0.8rem; font-size: 0.85em;">Edit Name</button>
+                        <button class="btn btn-secondary del-btn" data-index="${index}" style="padding: 0.4rem 0.8rem; font-size: 0.85em; border-color: var(--danger); color: var(--danger);">Delete</button>
+                    </div>
+                </div>
+            `;
+            predictionsList.appendChild(div);
+        });
+
+        document.querySelectorAll('.del-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(e.target.getAttribute('data-index'));
+                if (confirm('Are you sure you want to delete this prediction?')) {
+                    let currentPreds = StorageDB.get('worldCupPredictions') || [];
+                    currentPreds.splice(idx, 1);
+                    StorageDB.set('worldCupPredictions', currentPreds);
+                    
+                    // If all predictions are deleted, unlock the form so the user can add a new one
+                    if (currentPreds.length === 0) {
+                        StorageDB.set('worldCupPredictionsLocked', false);
+                    }
+                    
+                    renderPredictions();
+                }
+            });
+        });
+
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(e.target.getAttribute('data-index'));
+                let currentPreds = StorageDB.get('worldCupPredictions') || [];
+                const currentName = currentPreds[idx].playerName || '';
+                const newName = prompt('Enter new player name:', currentName);
+                if (newName !== null && newName.trim() !== '') {
+                    currentPreds[idx].playerName = newName.trim();
+                    StorageDB.set('worldCupPredictions', currentPreds);
+                    renderPredictions();
+                }
+            });
+        });
+    }
 });

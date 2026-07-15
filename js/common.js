@@ -30,7 +30,6 @@ const POINTS_CONFIG = {
     finalScore: 10,
     firstGoalTeam: 4,
     firstGoalScorer: 8,
-    minuteOfFirstGoal: 5, // within +-5
     totalGoals: 3,
     yellowCards: 3,
     redCards: 3,

@@ -24,43 +24,85 @@
                     <label>Team to Win</label>
                     <select id="teamToWin" required>
                         <option value="" disabled selected>Select Team...</option>
-                        <option value="Team A">Team A</option>
-                        <option value="Team B">Team B</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Spain">Spain</option>
                         <option value="Draw">Draw</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Final Score (e.g., 2-1)</label>
-                    <input type="text" id="finalScore" required>
+                    <label>Final Score</label>
+                    <select id="finalScore" required>
+                        <option value="" disabled selected>Select Score...</option>
+                        <option value="0-0">0-0</option>
+                        <option value="1-0">1-0</option>
+                        <option value="0-1">0-1</option>
+                        <option value="1-1">1-1</option>
+                        <option value="2-0">2-0</option>
+                        <option value="0-2">0-2</option>
+                        <option value="2-1">2-1</option>
+                        <option value="1-2">1-2</option>
+                        <option value="2-2">2-2</option>
+                        <option value="3-0">3-0</option>
+                        <option value="0-3">0-3</option>
+                        <option value="3-1">3-1</option>
+                        <option value="1-3">1-3</option>
+                        <option value="3-2">3-2</option>
+                        <option value="2-3">2-3</option>
+                        <option value="3-3">3-3</option>
+                        <option value="4-0">4-0</option>
+                        <option value="0-4">0-4</option>
+                        <option value="4-1">4-1</option>
+                        <option value="1-4">1-4</option>
+                        <option value="4-2">4-2</option>
+                        <option value="2-4">2-4</option>
+                        <option value="4-3">4-3</option>
+                        <option value="3-4">3-4</option>
+                        <option value="4-4">4-4</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>First Goal Team</label>
                     <select id="firstGoalTeam">
                         <option value="">None / No Goal</option>
-                        <option value="Team A">Team A</option>
-                        <option value="Team B">Team B</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Spain">Spain</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>First Goal Scorer</label>
                     <select id="firstGoalScorer">
                         <option value="">None / No Goal</option>
-                        <optgroup label="Team A">
-                            <option value="Player A1">Player A1</option>
-                            <option value="Player A2">Player A2</option>
-                            <option value="Player A3">Player A3</option>
+                        <optgroup label="Argentina">
+                            <option value="Lionel Messi">Lionel Messi</option>
+                            <option value="Lautaro Martínez">Lautaro Martínez</option>
+                            <option value="Julián Álvarez">Julián Álvarez</option>
+                            <option value="Thiago Almada">Thiago Almada</option>
+                            <option value="Nicolás González">Nicolás González</option>
+                            <option value="Giuliano Simeone">Giuliano Simeone</option>
+                            <option value="Nico Paz">Nico Paz</option>
+                            <option value="Enzo Fernández">Enzo Fernández</option>
+                            <option value="Alexis Mac Allister">Alexis Mac Allister</option>
+                            <option value="Rodrigo De Paul">Rodrigo De Paul</option>
+                            <option value="Cristian Romero">Cristian Romero</option>
+                            <option value="Other Argentina Player">Other Argentina Player</option>
                         </optgroup>
-                        <optgroup label="Team B">
-                            <option value="Player B1">Player B1</option>
-                            <option value="Player B2">Player B2</option>
-                            <option value="Player B3">Player B3</option>
+                        <optgroup label="Spain">
+                            <option value="Lamine Yamal">Lamine Yamal</option>
+                            <option value="Mikel Oyarzabal">Mikel Oyarzabal</option>
+                            <option value="Dani Olmo">Dani Olmo</option>
+                            <option value="Ferran Torres">Ferran Torres</option>
+                            <option value="Nico Williams">Nico Williams</option>
+                            <option value="Pedri">Pedri</option>
+                            <option value="Fabián Ruiz">Fabián Ruiz</option>
+                            <option value="Gavi">Gavi</option>
+                            <option value="Rodri">Rodri</option>
+                            <option value="Álex Baena">Álex Baena</option>
+                            <option value="Martín Zubimendi">Martín Zubimendi</option>
+                            <option value="Other Spain Player">Other Spain Player</option>
                         </optgroup>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Minute of First Goal</label>
-                    <input type="number" id="minuteOfFirstGoal">
-                </div>
+
                 <div class="form-group">
                     <label>Total Goals</label>
                     <input type="number" id="totalGoals">
@@ -95,15 +137,33 @@
                     <label>Man of the Match</label>
                     <select id="motm">
                         <option value="">Select Player...</option>
-                        <optgroup label="Team A">
-                            <option value="Player A1">Player A1</option>
-                            <option value="Player A2">Player A2</option>
-                            <option value="Player A3">Player A3</option>
+                        <optgroup label="Argentina">
+                            <option value="Lionel Messi">Lionel Messi</option>
+                            <option value="Lautaro Martínez">Lautaro Martínez</option>
+                            <option value="Julián Álvarez">Julián Álvarez</option>
+                            <option value="Thiago Almada">Thiago Almada</option>
+                            <option value="Nicolás González">Nicolás González</option>
+                            <option value="Giuliano Simeone">Giuliano Simeone</option>
+                            <option value="Nico Paz">Nico Paz</option>
+                            <option value="Enzo Fernández">Enzo Fernández</option>
+                            <option value="Alexis Mac Allister">Alexis Mac Allister</option>
+                            <option value="Rodrigo De Paul">Rodrigo De Paul</option>
+                            <option value="Cristian Romero">Cristian Romero</option>
+                            <option value="Other Argentina Player">Other Argentina Player</option>
                         </optgroup>
-                        <optgroup label="Team B">
-                            <option value="Player B1">Player B1</option>
-                            <option value="Player B2">Player B2</option>
-                            <option value="Player B3">Player B3</option>
+                        <optgroup label="Spain">
+                            <option value="Lamine Yamal">Lamine Yamal</option>
+                            <option value="Mikel Oyarzabal">Mikel Oyarzabal</option>
+                            <option value="Dani Olmo">Dani Olmo</option>
+                            <option value="Ferran Torres">Ferran Torres</option>
+                            <option value="Nico Williams">Nico Williams</option>
+                            <option value="Pedri">Pedri</option>
+                            <option value="Fabián Ruiz">Fabián Ruiz</option>
+                            <option value="Gavi">Gavi</option>
+                            <option value="Rodri">Rodri</option>
+                            <option value="Álex Baena">Álex Baena</option>
+                            <option value="Martín Zubimendi">Martín Zubimendi</option>
+                            <option value="Other Spain Player">Other Spain Player</option>
                         </optgroup>
                     </select>
                 </div>
