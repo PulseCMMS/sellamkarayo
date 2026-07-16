@@ -80,5 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
         inputs.forEach(input => input.disabled = true);
         lockBtn.style.display = 'none';
         lockedMessage.classList.remove('hidden');
+
+        // Check if admin has published actual results (meaning scores are calculated)
+        if (StorageDB.get('worldCupActualResults')) {
+            const scoreDisplay = document.getElementById('score-display');
+            const userScore = document.getElementById('user-score');
+            if (scoreDisplay && userScore && predictions.length > 0) {
+                userScore.textContent = predictions[0].score || 0;
+                scoreDisplay.classList.remove('hidden');
+            }
+        }
     }
 });
