@@ -41,17 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const results = {
-            winningTeam: document.getElementById('resWinningTeam').value.toLowerCase().trim(),
-            finalScore: document.getElementById('resFinalScore').value.toLowerCase().trim(),
-            firstGoalTeam: document.getElementById('resFirstGoalTeam').value.toLowerCase().trim(),
-            firstGoalScorer: document.getElementById('resFirstGoalScorer').value.toLowerCase().trim(),
+            winningTeam: document.getElementById('resWinningTeam').value,
+            finalScore: document.getElementById('resFinalScore').value,
+            firstGoalTeam: document.getElementById('resFirstGoalTeam').value,
+            firstGoalScorer: document.getElementById('resFirstGoalScorer').value,
             totalGoals: document.getElementById('resTotalGoals').value === '' ? '' : parseInt(document.getElementById('resTotalGoals').value),
             yellowCards: document.getElementById('resYellowCards').value === '' ? '' : parseInt(document.getElementById('resYellowCards').value),
             redCards: document.getElementById('resRedCards').value === '' ? '' : parseInt(document.getElementById('resRedCards').value),
             corners: document.getElementById('resCorners').value === '' ? '' : parseInt(document.getElementById('resCorners').value),
             extraTime: document.getElementById('resExtraTime').value,
             penaltyShootout: document.getElementById('resPenaltyShootout').value,
-            motm: document.getElementById('resMotm').value.toLowerCase().trim()
+            motm: document.getElementById('resMotm').value
         };
 
         StorageDB.set('worldCupActualResults', results);
@@ -60,17 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         predictions = predictions.map(p => {
             let score = 0;
-            if (p.teamToWin && p.teamToWin.toLowerCase().trim() === results.winningTeam) score += POINTS_CONFIG.winningTeam;
-            if (p.finalScore && p.finalScore.toLowerCase().trim() === results.finalScore) score += POINTS_CONFIG.finalScore;
-            if (p.firstGoalTeam && p.firstGoalTeam.toLowerCase().trim() === results.firstGoalTeam) score += POINTS_CONFIG.firstGoalTeam;
-            if (p.firstGoalScorer && p.firstGoalScorer.toLowerCase().trim() === results.firstGoalScorer) score += POINTS_CONFIG.firstGoalScorer;
+            if (p.teamToWin && results.winningTeam && p.teamToWin.toLowerCase().trim() === results.winningTeam.toLowerCase().trim()) score += POINTS_CONFIG.winningTeam;
+            if (p.finalScore && results.finalScore && p.finalScore.toLowerCase().trim() === results.finalScore.toLowerCase().trim()) score += POINTS_CONFIG.finalScore;
+            if (p.firstGoalTeam && results.firstGoalTeam && p.firstGoalTeam.toLowerCase().trim() === results.firstGoalTeam.toLowerCase().trim()) score += POINTS_CONFIG.firstGoalTeam;
+            if (p.firstGoalScorer && results.firstGoalScorer && p.firstGoalScorer.toLowerCase().trim() === results.firstGoalScorer.toLowerCase().trim()) score += POINTS_CONFIG.firstGoalScorer;
             if (p.totalGoals !== '' && p.totalGoals === results.totalGoals) score += POINTS_CONFIG.totalGoals;
             if (p.yellowCards !== '' && p.yellowCards === results.yellowCards) score += POINTS_CONFIG.yellowCards;
             if (p.redCards !== '' && p.redCards === results.redCards) score += POINTS_CONFIG.redCards;
             if (p.corners !== '' && p.corners === results.corners) score += POINTS_CONFIG.corners;
             if (p.extraTime === results.extraTime) score += POINTS_CONFIG.extraTime;
             if (p.penaltyShootout === results.penaltyShootout) score += POINTS_CONFIG.penaltyShootout;
-            if (p.motm && p.motm.toLowerCase().trim() === results.motm) score += POINTS_CONFIG.motm;
+            if (p.motm && results.motm && p.motm.toLowerCase().trim() === results.motm.toLowerCase().trim()) score += POINTS_CONFIG.motm;
             
             p.score = score;
             return p;

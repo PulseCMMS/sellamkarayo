@@ -94,17 +94,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 let breakdownHTML = '<ul style="text-align: left; margin-top: 1rem; font-size: 1rem; font-weight: normal; list-style-type: none; padding: 0.5rem; background: rgba(0,0,0,0.2); border-radius: 8px;">';
                 let hasPoints = false;
                 
-                if (p.teamToWin && p.teamToWin.toLowerCase().trim() === actualResults.winningTeam) { breakdownHTML += `<li>✅ Team to Win: +${POINTS_CONFIG.winningTeam}</li>`; hasPoints = true; }
-                if (p.finalScore && p.finalScore.toLowerCase().trim() === actualResults.finalScore) { breakdownHTML += `<li>✅ Final Score: +${POINTS_CONFIG.finalScore}</li>`; hasPoints = true; }
-                if (p.firstGoalTeam && p.firstGoalTeam.toLowerCase().trim() === actualResults.firstGoalTeam) { breakdownHTML += `<li>✅ First Goal Team: +${POINTS_CONFIG.firstGoalTeam}</li>`; hasPoints = true; }
-                if (p.firstGoalScorer && p.firstGoalScorer.toLowerCase().trim() === actualResults.firstGoalScorer) { breakdownHTML += `<li>✅ First Goal Scorer: +${POINTS_CONFIG.firstGoalScorer}</li>`; hasPoints = true; }
+                if (p.teamToWin && actualResults.winningTeam && p.teamToWin.toLowerCase().trim() === actualResults.winningTeam.toLowerCase().trim()) { breakdownHTML += `<li>✅ Team to Win: +${POINTS_CONFIG.winningTeam}</li>`; hasPoints = true; }
+                if (p.finalScore && actualResults.finalScore && p.finalScore.toLowerCase().trim() === actualResults.finalScore.toLowerCase().trim()) { breakdownHTML += `<li>✅ Final Score: +${POINTS_CONFIG.finalScore}</li>`; hasPoints = true; }
+                if (p.firstGoalTeam && actualResults.firstGoalTeam && p.firstGoalTeam.toLowerCase().trim() === actualResults.firstGoalTeam.toLowerCase().trim()) { breakdownHTML += `<li>✅ First Goal Team: +${POINTS_CONFIG.firstGoalTeam}</li>`; hasPoints = true; }
+                if (p.firstGoalScorer && actualResults.firstGoalScorer && p.firstGoalScorer.toLowerCase().trim() === actualResults.firstGoalScorer.toLowerCase().trim()) { breakdownHTML += `<li>✅ First Goal Scorer: +${POINTS_CONFIG.firstGoalScorer}</li>`; hasPoints = true; }
                 if (p.totalGoals !== '' && p.totalGoals === actualResults.totalGoals) { breakdownHTML += `<li>✅ Total Goals: +${POINTS_CONFIG.totalGoals}</li>`; hasPoints = true; }
                 if (p.yellowCards !== '' && p.yellowCards === actualResults.yellowCards) { breakdownHTML += `<li>✅ Yellow Cards: +${POINTS_CONFIG.yellowCards}</li>`; hasPoints = true; }
                 if (p.redCards !== '' && p.redCards === actualResults.redCards) { breakdownHTML += `<li>✅ Red Cards: +${POINTS_CONFIG.redCards}</li>`; hasPoints = true; }
                 if (p.corners !== '' && p.corners === actualResults.corners) { breakdownHTML += `<li>✅ Corners: +${POINTS_CONFIG.corners}</li>`; hasPoints = true; }
                 if (p.extraTime === actualResults.extraTime) { breakdownHTML += `<li>✅ Extra Time: +${POINTS_CONFIG.extraTime}</li>`; hasPoints = true; }
                 if (p.penaltyShootout === actualResults.penaltyShootout) { breakdownHTML += `<li>✅ Penalty Shootout: +${POINTS_CONFIG.penaltyShootout}</li>`; hasPoints = true; }
-                if (p.motm && p.motm.toLowerCase().trim() === actualResults.motm) { breakdownHTML += `<li>✅ Man of the Match: +${POINTS_CONFIG.motm}</li>`; hasPoints = true; }
+                if (p.motm && actualResults.motm && p.motm.toLowerCase().trim() === actualResults.motm.toLowerCase().trim()) { breakdownHTML += `<li>✅ Man of the Match: +${POINTS_CONFIG.motm}</li>`; hasPoints = true; }
                 
                 if (!hasPoints) {
                     breakdownHTML += '<li>No points scored yet.</li>';
