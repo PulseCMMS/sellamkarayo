@@ -81,46 +81,76 @@ document.addEventListener('DOMContentLoaded', () => {
         lockBtn.style.display = 'none';
         lockedMessage.classList.remove('hidden');
 
-        // Check if admin has published actual results (meaning scores are calculated)
-        const actualResults = StorageDB.get('worldCupActualResults');
-        if (actualResults) {
-            const scoreDisplay = document.getElementById('score-display');
-            const userScore = document.getElementById('user-score');
-            if (scoreDisplay && userScore && predictions.length > 0) {
-                userScore.textContent = predictions[0].score || 0;
-                
-                // Generate breakdown
-                const p = predictions[0];
-                let breakdownHTML = '<ul style="text-align: left; margin-top: 1rem; font-size: 1rem; font-weight: normal; list-style-type: none; padding: 0.5rem; background: rgba(0,0,0,0.2); border-radius: 8px;">';
-                let hasPoints = false;
-                
-                if (p.teamToWin && actualResults.winningTeam && p.teamToWin.toLowerCase().trim() === actualResults.winningTeam.toLowerCase().trim()) { breakdownHTML += `<li>✅ Team to Win: +${POINTS_CONFIG.winningTeam}</li>`; hasPoints = true; }
-                if (p.finalScore && actualResults.finalScore && p.finalScore.toLowerCase().trim() === actualResults.finalScore.toLowerCase().trim()) { breakdownHTML += `<li>✅ Final Score: +${POINTS_CONFIG.finalScore}</li>`; hasPoints = true; }
-                if (p.firstGoalTeam && actualResults.firstGoalTeam && p.firstGoalTeam.toLowerCase().trim() === actualResults.firstGoalTeam.toLowerCase().trim()) { breakdownHTML += `<li>✅ First Goal Team: +${POINTS_CONFIG.firstGoalTeam}</li>`; hasPoints = true; }
-                if (p.firstGoalScorer && actualResults.firstGoalScorer && p.firstGoalScorer.toLowerCase().trim() === actualResults.firstGoalScorer.toLowerCase().trim()) { breakdownHTML += `<li>✅ First Goal Scorer: +${POINTS_CONFIG.firstGoalScorer}</li>`; hasPoints = true; }
-                if (p.totalGoals !== '' && p.totalGoals === actualResults.totalGoals) { breakdownHTML += `<li>✅ Total Goals: +${POINTS_CONFIG.totalGoals}</li>`; hasPoints = true; }
-                if (p.yellowCards !== '' && p.yellowCards === actualResults.yellowCards) { breakdownHTML += `<li>✅ Yellow Cards: +${POINTS_CONFIG.yellowCards}</li>`; hasPoints = true; }
-                if (p.redCards !== '' && p.redCards === actualResults.redCards) { breakdownHTML += `<li>✅ Red Cards: +${POINTS_CONFIG.redCards}</li>`; hasPoints = true; }
-                if (p.corners !== '' && p.corners === actualResults.corners) { breakdownHTML += `<li>✅ Corners: +${POINTS_CONFIG.corners}</li>`; hasPoints = true; }
-                if (p.extraTime === actualResults.extraTime) { breakdownHTML += `<li>✅ Extra Time: +${POINTS_CONFIG.extraTime}</li>`; hasPoints = true; }
-                if (p.penaltyShootout === actualResults.penaltyShootout) { breakdownHTML += `<li>✅ Penalty Shootout: +${POINTS_CONFIG.penaltyShootout}</li>`; hasPoints = true; }
-                if (p.motm && actualResults.motm && p.motm.toLowerCase().trim() === actualResults.motm.toLowerCase().trim()) { breakdownHTML += `<li>✅ Man of the Match: +${POINTS_CONFIG.motm}</li>`; hasPoints = true; }
-                
-                if (!hasPoints) {
-                    breakdownHTML += '<li>No points scored yet.</li>';
-                }
-                breakdownHTML += '</ul>';
+        // Automatically try to fetch scores when showing locked state
+        fetchAndCalculateScores();
+    }
 
-                let breakdownContainer = document.getElementById('score-breakdown');
-                if (!breakdownContainer) {
-                    breakdownContainer = document.createElement('div');
-                    breakdownContainer.id = 'score-breakdown';
-                    scoreDisplay.appendChild(breakdownContainer);
-                }
-                breakdownContainer.innerHTML = breakdownHTML;
+    const refreshScoreBtn = document.getElementById('refreshScoreBtn');
+    if (refreshScoreBtn) {
+        refreshScoreBtn.addEventListener('click', () => {
+            fetchAndCalculateScores();
+        });
+    }
 
-                scoreDisplay.classList.remove('hidden');
+    async function fetchAndCalculateScores() {
+        try {
+            // Add a cache buster so GitHub Pages doesn't serve a stale file
+            const response = await fetch('actuals.json?t=' + new Date().getTime());
+            if (!response.ok) {
+                console.log('actuals.json not found or not published yet.');
+                return;
             }
+            const actualResults = await response.json();
+            
+            // Check if actuals have data (winningTeam is populated)
+            if (actualResults && actualResults.winningTeam) {
+                calculateAndDisplayScore(actualResults);
+            } else {
+                console.log('actuals.json is empty.');
+            }
+        } catch (e) {
+            console.error('Error fetching actuals.json', e);
+        }
+    }
+
+    function calculateAndDisplayScore(actualResults) {
+        const scoreDisplay = document.getElementById('score-display');
+        const userScore = document.getElementById('user-score');
+        
+        if (scoreDisplay && userScore && predictions.length > 0) {
+            const p = predictions[0];
+            let score = 0;
+            let breakdownHTML = '<ul style="text-align: left; margin-top: 1rem; font-size: 1rem; font-weight: normal; list-style-type: none; padding: 0.5rem; background: rgba(0,0,0,0.2); border-radius: 8px;">';
+            let hasPoints = false;
+            
+            if (p.teamToWin && actualResults.winningTeam && p.teamToWin.toLowerCase().trim() === actualResults.winningTeam.toLowerCase().trim()) { breakdownHTML += `<li>✅ Team to Win: +${POINTS_CONFIG.winningTeam}</li>`; score += POINTS_CONFIG.winningTeam; hasPoints = true; }
+            if (p.finalScore && actualResults.finalScore && p.finalScore.toLowerCase().trim() === actualResults.finalScore.toLowerCase().trim()) { breakdownHTML += `<li>✅ Final Score: +${POINTS_CONFIG.finalScore}</li>`; score += POINTS_CONFIG.finalScore; hasPoints = true; }
+            if (p.firstGoalTeam && actualResults.firstGoalTeam && p.firstGoalTeam.toLowerCase().trim() === actualResults.firstGoalTeam.toLowerCase().trim()) { breakdownHTML += `<li>✅ First Goal Team: +${POINTS_CONFIG.firstGoalTeam}</li>`; score += POINTS_CONFIG.firstGoalTeam; hasPoints = true; }
+            if (p.firstGoalScorer && actualResults.firstGoalScorer && p.firstGoalScorer.toLowerCase().trim() === actualResults.firstGoalScorer.toLowerCase().trim()) { breakdownHTML += `<li>✅ First Goal Scorer: +${POINTS_CONFIG.firstGoalScorer}</li>`; score += POINTS_CONFIG.firstGoalScorer; hasPoints = true; }
+            if (p.totalGoals !== '' && p.totalGoals === actualResults.totalGoals) { breakdownHTML += `<li>✅ Total Goals: +${POINTS_CONFIG.totalGoals}</li>`; score += POINTS_CONFIG.totalGoals; hasPoints = true; }
+            if (p.yellowCards !== '' && p.yellowCards === actualResults.yellowCards) { breakdownHTML += `<li>✅ Yellow Cards: +${POINTS_CONFIG.yellowCards}</li>`; score += POINTS_CONFIG.yellowCards; hasPoints = true; }
+            if (p.redCards !== '' && p.redCards === actualResults.redCards) { breakdownHTML += `<li>✅ Red Cards: +${POINTS_CONFIG.redCards}</li>`; score += POINTS_CONFIG.redCards; hasPoints = true; }
+            if (p.corners !== '' && p.corners === actualResults.corners) { breakdownHTML += `<li>✅ Corners: +${POINTS_CONFIG.corners}</li>`; score += POINTS_CONFIG.corners; hasPoints = true; }
+            if (p.extraTime === actualResults.extraTime) { breakdownHTML += `<li>✅ Extra Time: +${POINTS_CONFIG.extraTime}</li>`; score += POINTS_CONFIG.extraTime; hasPoints = true; }
+            if (p.penaltyShootout === actualResults.penaltyShootout) { breakdownHTML += `<li>✅ Penalty Shootout: +${POINTS_CONFIG.penaltyShootout}</li>`; score += POINTS_CONFIG.penaltyShootout; hasPoints = true; }
+            if (p.motm && actualResults.motm && p.motm.toLowerCase().trim() === actualResults.motm.toLowerCase().trim()) { breakdownHTML += `<li>✅ Man of the Match: +${POINTS_CONFIG.motm}</li>`; score += POINTS_CONFIG.motm; hasPoints = true; }
+            
+            if (!hasPoints) {
+                breakdownHTML += '<li>No points scored yet.</li>';
+            }
+            breakdownHTML += '</ul>';
+
+            userScore.textContent = score;
+
+            let breakdownContainer = document.getElementById('score-breakdown');
+            if (!breakdownContainer) {
+                breakdownContainer = document.createElement('div');
+                breakdownContainer.id = 'score-breakdown';
+                scoreDisplay.appendChild(breakdownContainer);
+            }
+            breakdownContainer.innerHTML = breakdownHTML;
+
+            scoreDisplay.classList.remove('hidden');
         }
     }
 });
