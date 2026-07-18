@@ -1,13 +1,13 @@
 {
-  "winningTeam": null,
-  "finalScore": null,
-  "firstGoalTeam": null,
-  "firstGoalScorer": null,
+  "winningTeam": "Argentina",
+  "finalScore": "2-2",
+  "firstGoalTeam": "",
+  "firstGoalScorer": "",
   "totalGoals": null,
   "yellowCards": null,
   "redCards": null,
   "corners": null,
-  "extraTime": null,
-  "penaltyShootout": null,
-  "motm": null
+  "extraTime": "No",
+  "penaltyShootout": "No",
+  "motm": ""
 }
