@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginSection = document.getElementById('login-section');
     const adminSection = document.getElementById('admin-section');
     const jsonOutputSection = document.getElementById('json-output-section');
+    const manageLocalSection = document.getElementById('manage-local-section');
+    const clearPredictionsBtn = document.getElementById('clearPredictionsBtn');
     const jsonOutput = document.getElementById('jsonOutput');
     const copyBtn = document.getElementById('copyBtn');
     const loginBtn = document.getElementById('loginBtn');
@@ -13,8 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (passwordInput.value === 'worldcup') {
             loginSection.classList.add('hidden');
             adminSection.classList.remove('hidden');
+            manageLocalSection.classList.remove('hidden');
         } else {
             alert('Incorrect password');
+        }
+    });
+
+    clearPredictionsBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete the local predictions saved on this device? This action cannot be undone.')) {
+            StorageDB.remove('worldCupPredictions');
+            StorageDB.remove('worldCupPredictionsLocked');
+            alert('Local predictions cleared!');
         }
     });
 
