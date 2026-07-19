@@ -1,13 +1,13 @@
 {
-  "winningTeam": "NA",
-  "finalScore": "NA",
-  "firstGoalTeam": "",
-  "firstGoalScorer": "",
-  "totalGoals": null,
-  "yellowCards": null,
-  "redCards": null,
-  "corners": null,
-  "extraTime": "NA",
-  "penaltyShootout": "NA",
-  "motm": ""
+  "winningTeam": "Spain",
+  "finalScore": "1-0",
+  "firstGoalTeam": "Spain",
+  "firstGoalScorer": "Ferran Torres",
+  "totalGoals": 1,
+  "yellowCards": 5,
+  "redCards": 1,
+  "corners": 13,
+  "extraTime": "No",
+  "penaltyShootout": "No",
+  "motm": "Ferran Torres"
 }
